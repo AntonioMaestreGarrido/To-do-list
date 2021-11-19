@@ -1,1 +1,54 @@
-*{margin: 0;}
+
+*{margin: 5px;}
+h1{
+    text-align: center;
+    margin: 20px 40px;
+    font-size: 40px;
+}
+h4{
+    font-size: 25px;
+    color: lightcoral;
+}
+#cuerpo{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    box-sizing: content-box;
+    
+    height: 600px;
+    border: solid 2px green;
+
+}
+#lateral{
+    margin: 0px;
+    padding: 20px;
+    border: solid 2px black;
+    width: 100px;
+    min-height: 500px;
+    
+}
+#panel{
+    margin: 0px;
+    border: solid 2px red;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    gap: 5px;
+    padding: 15px;
+    flex-wrap: wrap;
+    justify-content: left;
+
+}
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: rgb(205, 185, 219);
+    color: ivory;
+    min-width: 300px;
+    max-width: 300px;
+    height: 200px;
+ }
+ .card:hover{
+     background-color:indigo;
+ }
