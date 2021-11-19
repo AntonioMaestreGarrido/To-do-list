@@ -23,9 +23,37 @@ h4{
     margin: 0px;
     padding: 20px;
     border: solid 2px black;
-    width: 100px;
+    width: 130px;
     min-height: 500px;
     
+}
+#lateral>p{
+    background-color: gray;
+    color: lawngreen;
+    width: 100px;
+    height: 20px;
+    padding: 10px;
+}
+form{
+    
+    position: fixed;
+    margin: auto;
+    left: 40%;
+    display: none;
+    flex-direction: column;
+    background-color: khaki;
+}
+ul{
+    display: flex;
+    border: solid 2px green;
+}
+label{
+    margin: 0;
+    border: solid 2px red;
+    width: 80px;
+}
+#description{
+    height: 50px;
 }
 #panel{
     margin: 0px;
