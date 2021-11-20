@@ -203,7 +203,7 @@ function getNewProjectData(index) {
 
 }
 function dummydata() {
-    var uno = new Project("the odin project", "pues eso", "2021-11-15")
+    var uno = new Project("the odin project", "Lorem ipsum dolorna aliquanisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum do", "2021-11-15")
     var dos = new Project("black belt", "a ver si llego", "2021-11-15")
     var tres = new Project("kill borja", "no se merece menos", "2021-11-15")
     var cuatro = new Project("random app in vba", "ni puta idea", "2021-11-15")

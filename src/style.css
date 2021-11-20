@@ -84,13 +84,19 @@ label{
  }
  
 
-
+.buttonContainer{
+    position: fixed;
+    
+    
+    height: inherit;
+    width: inherit;
+}
  img.iconcard{
      
      
     position: relative;
     margin: 0 50px;
-    bottom: -50px;
+    top: 150px;
     
 	  display:inline-block;
 
