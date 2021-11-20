@@ -1,12 +1,13 @@
 
-*{margin: 5px;}
+*{margin: 0px;
+padding: 0;}
 h1{
     text-align: center;
     margin: 20px 40px;
     font-size: 40px;
 }
 h4{
-    font-size: 25px;
+    font-size: 35px;
     color: lightcoral;
 }
 #cuerpo{
@@ -76,7 +77,22 @@ label{
     min-width: 300px;
     max-width: 300px;
     height: 200px;
+    box-shadow:  6px 6px 15px grey;
  }
- .card:hover{
-     background-color:indigo;
+ 
+ img:hover{
+     background-color:rgb(146, 96, 182);
+ }
+ 
+
+
+ img.iconcard{
+     
+     
+    position: relative;
+    margin: 0 50px;
+    bottom: -50px;
+    
+	  display:inline-block;
+
  }

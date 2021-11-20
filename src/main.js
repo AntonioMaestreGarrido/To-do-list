@@ -45,6 +45,11 @@ class toDo {
 }
 
 
+dummydata()
+
+getNewProjectData()
+
+
 
 function createCard() {
     document.querySelector("#panel").innerHTML="";
@@ -67,9 +72,24 @@ function createCard() {
         cardDescription.innerHTML = cardElement.description
         card.appendChild(cardDescription);
 
-        card.addEventListener("click", () => {
-            return alert("click");
-        })
+        const divButton=document.createElement("div")
+        divButton.classList.add("buttonContainer");
+        card.appendChild(divButton);
+
+        const buttonEditar=document.createElement("img")
+        buttonEditar.setAttribute("src","icons/pen.png")
+        buttonEditar.addEventListener("click",()=>alert("edita"))
+        buttonEditar.classList.add("iconcard")
+        divButton.appendChild(buttonEditar);
+        
+        const buttonBorrar=document.createElement("img")
+        buttonBorrar.setAttribute("src","icons/bin.png")
+        divButton.appendChild(buttonBorrar);
+        buttonBorrar.classList.add("iconcard")
+        buttonBorrar.addEventListener("click",editaCard)
+
+
+       
 
         document.querySelector("#panel").appendChild(card);
 
@@ -77,17 +97,23 @@ function createCard() {
     }
      
 }
+function editaCard(e) {
+    const card=e.target.parentElement.parentElement
+    card.childNodes[0].setAttribute("contenteditable",true)
+    card.childNodes[1].setAttribute("contenteditable",true)
+    card.childNodes[2].setAttribute("contenteditable",true)
+    alert("ok")
+    
+}
 function showForm() {
     
 }
 
-dummydata()
 
-getNewProjectData()
 
 function setListeners() {
     document.querySelector("#newProject").addEventListener("click",()=>{
-        alert("click")
+        
         document.querySelector("#getdata").style.display="flex"})
     
 }
@@ -108,6 +134,7 @@ function getNewProjectData() {
         projectList.push(p);
         createCard()
         document.querySelector("#getdata").style.display="none"
+        form.elements["name"].value=""; form.elements["description"].value =""; form.elements["duedate"].value="";
         
     })
     document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display="none" })
@@ -124,6 +151,7 @@ function dummydata() {
     var sdd = new toDo("black belsdsdt", "a ver si llego", "bjj", "31/12/2023")
     uno.addToDo(dos)
     uno.addToDo(sdd)
+    createCard()
 
 
 }
