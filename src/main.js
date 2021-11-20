@@ -93,11 +93,55 @@ function createCard() {
 
 
         document.querySelector("#panel").appendChild(card);
+        card.addEventListener("click", openCard)
 
 
     }
 
 }
+
+function openCard(e) {
+    const card = e.target.parentElement
+    var cardToOpen
+    let id = card.getAttribute("id");
+    for (let index in projectList) {
+        if (id == projectList[index].id) {
+            cardToOpen = projectList[index]
+        }
+
+    }
+    document.querySelector("#panel").innerHTML = "";
+
+    const divContainer = document.createElement("div");
+    document.querySelector("#panel").appendChild(divContainer);
+    divContainer.setAttribute("id", "divContainer")
+
+    const cardName = document.createElement("h2");
+    divContainer.appendChild(cardName);
+    cardName.innerHTML = cardToOpen.nombre;
+
+    const cardDue = document.createElement("h3");
+    divContainer.appendChild(cardDue);
+    cardDue.innerHTML = cardToOpen.dueDate;
+
+    const cardDescription = document.createElement("p");
+    divContainer.appendChild(cardDescription);
+    cardDescription.innerHTML = cardToOpen.description;
+
+    const pending = document.createElement("p");
+    divContainer.appendChild(pending);
+    pending.innerHTML = "Pending Task";
+
+    cardToOpen.toDoList.forEach(l => {
+        console.log (l)
+        
+    });
+
+
+
+
+}
+
 function borraCard(e) {
     const card = e.target.parentElement.parentElement
     let id = card.getAttribute("id");
@@ -108,7 +152,7 @@ function borraCard(e) {
 
 
         if (id == projectList[index].id) {
-            alert("===")
+
 
             projectList.splice(index, 1)
             createCard()
@@ -176,7 +220,7 @@ function getNewProjectData(index) {
         if (form.elements["name"].value === "" || form.elements["description"].value === "" || form.elements["duedate"].value === "") {
             alert("faltan cosas");
             e.stopImmediatePropagation()
-             return
+            return
         }
 
 
@@ -196,7 +240,7 @@ function getNewProjectData(index) {
         form.elements["name"].value = ""; form.elements["description"].value = ""; form.elements["duedate"].value = "";
         document.querySelector("#getdata").style.display = "none"
         e.stopImmediatePropagation()
-    })
+    },false)
     //document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
 
 
@@ -211,10 +255,18 @@ function dummydata() {
     projectList.push(dos);
     projectList.push(tres);
     projectList.push(cuatro);
-    var dos = new toDo("black belt", "a ver si llego", "bjj", "31/12/2023")
-    var sdd = new toDo("black belsdsdt", "a ver si llego", "bjj", "31/12/2023")
-    uno.addToDo(dos)
-    uno.addToDo(sdd)
+    
+    var example2 = new toDo("mejorar Derrido","hay que trabajar mas los derribos para puntuar","2021-11-15")
+    var example = new toDo("mejorar guardia abierta","enfocarse en guardia araña","2021-11-15")
+    projectList[1].toDoList.push(example)
+    projectList[1].toDoList.push(example2)
+
+     example2 = new toDo("comparr cuerda","comparar precios en los carrefules","2021-11-15")
+     example = new toDo("veneno","estuidar sobre venenos disponibles","2021-11-15")
+
+     projectList[2].toDoList.push(example)
+    projectList[2].toDoList.push(example2)
+    
     createCard()
 
 

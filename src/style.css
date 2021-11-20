@@ -101,3 +101,12 @@ label{
 	  display:inline-block;
 
  }
+ #divContainer{
+     gap: 20px;
+     margin: 20px;
+     background-color: khaki;
+     width: 900px;
+     height: 600px;
+     display: flex;
+     flex-direction: column;
+ }
