@@ -59,6 +59,7 @@ function createCard() {
 
         const card = document.createElement("div");
         card.classList.add("card")
+        card.setAttribute("id",cardElement.id);
 
         const cardName = document.createElement("h4");
         card.appendChild(cardName);
@@ -86,7 +87,7 @@ function createCard() {
         buttonBorrar.setAttribute("src","icons/bin.png")
         divButton.appendChild(buttonBorrar);
         buttonBorrar.classList.add("iconcard")
-        buttonBorrar.addEventListener("click",editaCard)
+        buttonBorrar.addEventListener("click",borraCard)
 
 
        
@@ -97,11 +98,33 @@ function createCard() {
     }
      
 }
+function borraCard(e) {
+    const card=e.target.parentElement.parentElement
+    let id=card.getAttribute("id");
+
+    
+
+    for (let index in projectList) {
+        
+
+        if(id==projectList[index].id){
+            alert("===")
+            
+            projectList.splice(index,1)
+            createCard()
+            return
+        }
+        
+    } 
+    
+
+    
+
+    
+}
 function editaCard(e) {
     const card=e.target.parentElement.parentElement
-    card.childNodes[0].setAttribute("contenteditable",true)
-    card.childNodes[1].setAttribute("contenteditable",true)
-    card.childNodes[2].setAttribute("contenteditable",true)
+   
     alert("ok")
     
 }
@@ -145,8 +168,12 @@ function getNewProjectData() {
 function dummydata() {
     var uno = new Project("the odin project", "pues eso", "31/12/2022")
     var dos = new Project("black belt", "a ver si llego", "31/12/2023")
+    var tres = new Project("kill borja", "no se merece menos", "31/12/2022")
+    var cuatro = new Project("random app in vba", "ni puta idea", "31/12/2023")
     projectList.push(uno);
     projectList.push(dos);
+    projectList.push(tres);
+    projectList.push(cuatro);
     var dos = new toDo("black belt", "a ver si llego", "bjj", "31/12/2023")
     var sdd = new toDo("black belsdsdt", "a ver si llego", "bjj", "31/12/2023")
     uno.addToDo(dos)
