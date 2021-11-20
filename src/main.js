@@ -3,7 +3,7 @@ import * as dom from "./dom.js";
 
 dom.testA()
 const projectList = [];
-var i = 0;
+var i = 1;
 setListeners()
 
 
@@ -16,8 +16,8 @@ class Project {
         this.description = description
 
         this.toDoList = [];
-        this.id = ++i;
-
+        this.id = i;
+        i++;
     }
     addToDo(todo) {
         this.toDoList.push(todo)
@@ -47,19 +47,19 @@ class toDo {
 
 dummydata()
 
-getNewProjectData()
+
 
 
 
 function createCard() {
-    document.querySelector("#panel").innerHTML="";
+    document.querySelector("#panel").innerHTML = "";
     for (let i = 0; i < projectList.length; i++) {
         var cardElement = projectList[i];
         var f = new DocumentFragment
 
         const card = document.createElement("div");
         card.classList.add("card")
-        card.setAttribute("id",cardElement.id);
+        card.setAttribute("id", cardElement.id);
 
         const cardName = document.createElement("h4");
         card.appendChild(cardName);
@@ -73,103 +73,137 @@ function createCard() {
         cardDescription.innerHTML = cardElement.description
         card.appendChild(cardDescription);
 
-        const divButton=document.createElement("div")
+        const divButton = document.createElement("div")
         divButton.classList.add("buttonContainer");
         card.appendChild(divButton);
 
-        const buttonEditar=document.createElement("img")
-        buttonEditar.setAttribute("src","icons/pen.png")
-        buttonEditar.addEventListener("click",()=>alert("edita"))
+        const buttonEditar = document.createElement("img")
+        buttonEditar.setAttribute("src", "icons/pen.png")
+        buttonEditar.addEventListener("click", editaCard)
         buttonEditar.classList.add("iconcard")
         divButton.appendChild(buttonEditar);
-        
-        const buttonBorrar=document.createElement("img")
-        buttonBorrar.setAttribute("src","icons/bin.png")
+
+        const buttonBorrar = document.createElement("img")
+        buttonBorrar.setAttribute("src", "icons/bin.png")
         divButton.appendChild(buttonBorrar);
         buttonBorrar.classList.add("iconcard")
-        buttonBorrar.addEventListener("click",borraCard)
+        buttonBorrar.addEventListener("click", borraCard)
 
 
-       
+
 
         document.querySelector("#panel").appendChild(card);
 
 
     }
-     
+
 }
 function borraCard(e) {
-    const card=e.target.parentElement.parentElement
-    let id=card.getAttribute("id");
+    const card = e.target.parentElement.parentElement
+    let id = card.getAttribute("id");
 
-    
+
 
     for (let index in projectList) {
-        
 
-        if(id==projectList[index].id){
+
+        if (id == projectList[index].id) {
             alert("===")
-            
-            projectList.splice(index,1)
+
+            projectList.splice(index, 1)
             createCard()
             return
         }
-        
-    } 
-    
 
-    
+    }
 
-    
+
+
+
+
 }
 function editaCard(e) {
-    const card=e.target.parentElement.parentElement
-   
-    alert("ok")
+    const card = e.target.parentElement.parentElement
+    for (let index in projectList) {
+
+
+        if (card.getAttribute("id") == projectList[index].id) {
+            
+            
+            
+            getNewProjectData(index)
+            return
+        }
+
+    }
+
     
+
 }
-function showForm() {
-    
-}
+
 
 
 
 function setListeners() {
-    document.querySelector("#newProject").addEventListener("click",()=>{
-        
-        document.querySelector("#getdata").style.display="flex"})
-    
-}
-function getNewProjectData() {
+    console.log("WW")
+    document.querySelector("#newProject").addEventListener("click", function()  {
 
-    document.querySelector("#send").addEventListener("click", (e) => {
-        e.preventDefault();
-        var form=document.querySelector("#getdata")
-        if(form.elements["name"].value===""|| form.elements["description"].value ===""|| form.elements["duedate"].value===""){
-            alert("faltan cosas");return
-        }
-        
-        console.table(form)
-        
-       console.log(form.elements["name"].value)
-
-        var p = new Project(form.elements["name"].value, form.elements["description"].value, form.elements["duedate"].value)
-        projectList.push(p);
-        createCard()
-        document.querySelector("#getdata").style.display="none"
-        form.elements["name"].value=""; form.elements["description"].value =""; form.elements["duedate"].value="";
-        
+        document.querySelector("#getdata").style.display = "flex"
     })
-    document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display="none" })
+    document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
 
+}
+function getNewProjectData(index) {
+    document.querySelector("#getdata").style.display = "flex"
+    var form = document.querySelector("#getdata")
+    //if there is an index it means new prject,else edit
+    if (index == undefined) { index = -1 }
+    else{
+         form.elements["name"].value = projectList[index].nombre ;
+     form.elements["duedate"].value = projectList[index].dueDate ;
+     form.elements["description"].value = projectList[index].description ;}
+
+    //validate data
+    
+
+    document.querySelector("#getdata").setAttribute("index", index)
+    document.querySelector("#send").addEventListener("click", function add(e)  {
+        e.preventDefault();
+        //e.stopPropagation();
+        index = document.querySelector("#getdata").getAttribute("index")
+        
+        if (form.elements["name"].value === "" || form.elements["description"].value === "" || form.elements["duedate"].value === "") {
+            alert("faltan cosas"); return
+        }
+
+
+        if (index == -1) {
+            var p = new Project(form.elements["name"].value, form.elements["description"].value, form.elements["duedate"].value)
+            projectList.push(p);
+
+        }
+        else {
+            projectList[index].nombre = form.elements["name"].value;
+            projectList[index].dueDate = form.elements["duedate"].value;
+            projectList[index].description = form.elements["description"].value;
+            document.querySelector("#getdata").setAttribute("index", -1)
+        }
+
+        createCard()
+        form.elements["name"].value = ""; form.elements["description"].value = ""; form.elements["duedate"].value = "";
+        document.querySelector("#getdata").style.display = "none"
+        e.stopImmediatePropagation() 
+    })
+    //document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
+    
 
 
 }
 function dummydata() {
-    var uno = new Project("the odin project", "pues eso", "31/12/2022")
-    var dos = new Project("black belt", "a ver si llego", "31/12/2023")
-    var tres = new Project("kill borja", "no se merece menos", "31/12/2022")
-    var cuatro = new Project("random app in vba", "ni puta idea", "31/12/2023")
+    var uno = new Project("the odin project", "pues eso", "2021-11-15")
+    var dos = new Project("black belt", "a ver si llego", "2021-11-15")
+    var tres = new Project("kill borja", "no se merece menos", "2021-11-15")
+    var cuatro = new Project("random app in vba", "ni puta idea", "2021-11-15")
     projectList.push(uno);
     projectList.push(dos);
     projectList.push(tres);
