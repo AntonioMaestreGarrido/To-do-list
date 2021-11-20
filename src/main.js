@@ -128,16 +128,16 @@ function editaCard(e) {
 
 
         if (card.getAttribute("id") == projectList[index].id) {
-            
-            
-            
+
+
+
             getNewProjectData(index)
             return
         }
 
     }
 
-    
+
 
 }
 
@@ -146,7 +146,7 @@ function editaCard(e) {
 
 function setListeners() {
     console.log("WW")
-    document.querySelector("#newProject").addEventListener("click", function()  {
+    document.querySelector("#newProject").addEventListener("click", function () {
 
         document.querySelector("#getdata").style.display = "flex"
     })
@@ -158,22 +158,25 @@ function getNewProjectData(index) {
     var form = document.querySelector("#getdata")
     //if there is an index it means new prject,else edit
     if (index == undefined) { index = -1 }
-    else{
-         form.elements["name"].value = projectList[index].nombre ;
-     form.elements["duedate"].value = projectList[index].dueDate ;
-     form.elements["description"].value = projectList[index].description ;}
+    else {
+        form.elements["name"].value = projectList[index].nombre;
+        form.elements["duedate"].value = projectList[index].dueDate;
+        form.elements["description"].value = projectList[index].description;
+    }
 
     //validate data
-    
+
 
     document.querySelector("#getdata").setAttribute("index", index)
-    document.querySelector("#send").addEventListener("click", function add(e)  {
+    document.querySelector("#send").addEventListener("click", function add(e) {
         e.preventDefault();
         //e.stopPropagation();
         index = document.querySelector("#getdata").getAttribute("index")
-        
+
         if (form.elements["name"].value === "" || form.elements["description"].value === "" || form.elements["duedate"].value === "") {
-            alert("faltan cosas"); return
+            alert("faltan cosas");
+            e.stopImmediatePropagation()
+             return
         }
 
 
@@ -192,10 +195,10 @@ function getNewProjectData(index) {
         createCard()
         form.elements["name"].value = ""; form.elements["description"].value = ""; form.elements["duedate"].value = "";
         document.querySelector("#getdata").style.display = "none"
-        e.stopImmediatePropagation() 
+        e.stopImmediatePropagation()
     })
     //document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
-    
+
 
 
 }
