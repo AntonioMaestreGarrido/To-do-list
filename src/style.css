@@ -42,6 +42,7 @@ form{
     display: none;
     flex-direction: column;
     background-color: khaki;
+    z-index: 5;
 }
 ul{
     display: flex;
@@ -108,5 +109,12 @@ label{
      width: 900px;
      height: 600px;
      display: flex;
+     gap: 15px;
+     padding: 15px     ;
      flex-direction: column;
+     text-align: center;
+ }
+ .taskcontainer{
+     display: flex;
+     flex-direction: row;
  }

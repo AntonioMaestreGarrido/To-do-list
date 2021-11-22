@@ -55,7 +55,7 @@ function createCard() {
     document.querySelector("#panel").innerHTML = "";
     for (let i = 0; i < projectList.length; i++) {
         var cardElement = projectList[i];
-        var f = new DocumentFragment
+        var f = new DocumentFragment;
 
         const card = document.createElement("div");
         card.classList.add("card")
@@ -103,18 +103,22 @@ function createCard() {
 function openCard(e) {
     const card = e.target.parentElement
     var cardToOpen
-    let id = card.getAttribute("id");
+    var indexn
+    var id = card.getAttribute("id");
     for (let index in projectList) {
         if (id == projectList[index].id) {
             cardToOpen = projectList[index]
+            indexn=index
         }
 
     }
+
     document.querySelector("#panel").innerHTML = "";
 
     const divContainer = document.createElement("div");
     document.querySelector("#panel").appendChild(divContainer);
     divContainer.setAttribute("id", "divContainer")
+    divContainer.setAttribute("index", indexn)
 
     const cardName = document.createElement("h2");
     divContainer.appendChild(cardName);
@@ -133,16 +137,52 @@ function openCard(e) {
     pending.innerHTML = "Pending Task";
 
     cardToOpen.toDoList.forEach(l => {
-        console.log (l)
+        var divTask=document.createElement("div")
+        divTask.classList.add("taskContainer")
+        divContainer.appendChild(divTask);
+
+        var taskName=document.createElement("span")
+        taskName.innerHTML=l.nombre
+        divTask.appendChild(taskName)
         
+        var taskDue=document.createElement("span");
+        taskDue.innerHTML=l.dueDate;
+        divTask.appendChild(taskDue);
+        console.log(l.nombre);
+
+        var task=document.createElement("p")
+        task.innerHTML=l.description
+        divTask.appendChild(task)
+
+
+
     });
+    const buttonBack = document.createElement("button");
+    divContainer.appendChild(buttonBack);
+    buttonBack.addEventListener("click",createCard)
+    buttonBack.innerHTML = "close";
 
+    const buttonComplete = document.createElement("button");
+    divContainer.appendChild(buttonComplete);
+    buttonComplete.innerHTML = "complete";
 
-
+    const buttonNewTask = document.createElement("button");
+    buttonNewTask.addEventListener("click",createNewTask)
+    divContainer.appendChild(buttonNewTask);
+    buttonNewTask.innerHTML = "New Tast";
 
 }
 
-function borraCard(e) {
+function createNewTask(e){
+    alert(e)
+    var card=projectList[e.target.parentElement.getAttribute("index")]
+    
+
+    alert(card)
+    alert(card.nombre)
+    //
+}
+function borraCard() {
     const card = e.target.parentElement.parentElement
     let id = card.getAttribute("id");
 
@@ -164,6 +204,22 @@ function borraCard(e) {
 
 
 
+
+}
+function idToIndex(id){
+    
+    for (let index in projectList) {
+
+
+        if (id == projectList[index].id) {
+
+
+
+           
+            return index
+        }
+
+    }
 
 }
 function editaCard(e) {
@@ -190,13 +246,13 @@ function editaCard(e) {
 
 function setListeners() {
     console.log("WW")
-    document.querySelector("#newProject").addEventListener("click", function () {
-
-        document.querySelector("#getdata").style.display = "flex"
+    document.querySelector("#newProject").addEventListener("click",  ()=> {
+        getNewProjectData( )
+        //document.querySelector("#getdata").style.display = "flex"
     })
     document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
-
 }
+
 function getNewProjectData(index) {
     document.querySelector("#getdata").style.display = "flex"
     var form = document.querySelector("#getdata")
@@ -212,7 +268,7 @@ function getNewProjectData(index) {
 
 
     document.querySelector("#getdata").setAttribute("index", index)
-    document.querySelector("#send").addEventListener("click", function add(e) {
+    document.querySelector("#send").addEventListener("click",  (e)=> {
         e.preventDefault();
         //e.stopPropagation();
         index = document.querySelector("#getdata").getAttribute("index")
@@ -240,7 +296,7 @@ function getNewProjectData(index) {
         form.elements["name"].value = ""; form.elements["description"].value = ""; form.elements["duedate"].value = "";
         document.querySelector("#getdata").style.display = "none"
         e.stopImmediatePropagation()
-    },false)
+    }, false)
     //document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
 
 
@@ -255,18 +311,18 @@ function dummydata() {
     projectList.push(dos);
     projectList.push(tres);
     projectList.push(cuatro);
-    
-    var example2 = new toDo("mejorar Derrido","hay que trabajar mas los derribos para puntuar","2021-11-15")
-    var example = new toDo("mejorar guardia abierta","enfocarse en guardia araña","2021-11-15")
+
+    var example2 = new toDo("mejorar Derrido", "hay que trabajar mas los derribos para puntuar", "2021-11-15")
+    var example = new toDo("mejorar guardia abierta", "enfocarse en guardia araña", "2021-11-15")
     projectList[1].toDoList.push(example)
     projectList[1].toDoList.push(example2)
 
-     example2 = new toDo("comparr cuerda","comparar precios en los carrefules","2021-11-15")
-     example = new toDo("veneno","estuidar sobre venenos disponibles","2021-11-15")
+    example2 = new toDo("comparr cuerda", "comparar precios en los carrefules", "2021-11-15")
+    example = new toDo("veneno", "estuidar sobre venenos disponibles", "2021-11-15")
 
-     projectList[2].toDoList.push(example)
+    projectList[2].toDoList.push(example)
     projectList[2].toDoList.push(example2)
-    
+
     createCard()
 
 
