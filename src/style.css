@@ -115,6 +115,13 @@ label{
      text-align: center;
  }
  .taskcontainer{
+     
      display: flex;
      flex-direction: row;
+     
+ }
+  span{
+     
+    border: solid 2px red;
+    background-color: blueviolet;
  }

@@ -2,6 +2,7 @@
 import * as dom from "./dom.js";
 
 dom.testA()
+
 const projectList = [];
 var i = 1;
 setListeners()
@@ -35,6 +36,7 @@ class toDo {
 
         this.description = description
         this.dueDate = dueDate
+        var check=false
 
 
 
@@ -141,18 +143,26 @@ function openCard(e) {
         divTask.classList.add("taskContainer")
         divContainer.appendChild(divTask);
 
-        var taskName=document.createElement("span")
-        taskName.innerHTML=l.nombre
-        divTask.appendChild(taskName)
-        
         var taskDue=document.createElement("span");
         taskDue.innerHTML=l.dueDate;
         divTask.appendChild(taskDue);
         console.log(l.nombre);
+        
+        var taskName=document.createElement("span")
+        taskName.innerHTML=l.nombre
+        divTask.appendChild(taskName)
+        
+        var radiobutton=document.createElement("input")
+        radiobutton.setAttribute("type","checkbox")
+        radiobutton.addEventListener("click",()=>{l.check=radiobutton.checked;console.log(l.check);console.log(radiobutton.checked)})
+        divTask.appendChild(radiobutton)
 
         var task=document.createElement("p")
         task.innerHTML=l.description
         divTask.appendChild(task)
+
+
+
 
 
 
@@ -171,15 +181,31 @@ function openCard(e) {
     divContainer.appendChild(buttonNewTask);
     buttonNewTask.innerHTML = "New Tast";
 
+    const buttonDelete = document.createElement("button");
+    buttonDelete.addEventListener("click",()=>{
+        cardToOpen.toDoList.forEach((l,index)=>{
+            console.log(index)
+            if(l.checked){
+                cardToOpen.toDoList.splice
+            }
+
+        })
+        
+        console.table(cardToOpen.toDoList)
+    })
+    divContainer.appendChild(buttonDelete);
+    buttonDelete.innerHTML = "Delete";
+
 }
 
 function createNewTask(e){
     alert(e)
-    var card=projectList[e.target.parentElement.getAttribute("index")]
+    var index=e.target.parentElement.getAttribute("index")
+    
+    dom.getNewTaskData(index)
     
 
-    alert(card)
-    alert(card.nombre)
+   
     //
 }
 function borraCard() {
@@ -250,7 +276,13 @@ function setListeners() {
         getNewProjectData( )
         //document.querySelector("#getdata").style.display = "flex"
     })
-    document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
+    document.querySelector("#cancel").addEventListener("click", () => {
+        document.querySelector("#newProject").removeEventListener("click",  ()=> {
+            getNewProjectData( )
+            
+        })
+
+         document.querySelector("#getdata").style.display = "none" })
 }
 
 function getNewProjectData(index) {
