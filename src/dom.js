@@ -12,12 +12,21 @@ export function testB() {
 }
 
 export function getNewTaskData(index) {
-    document.querySelector("#getdata").style.display = "flex"
-    var form = document.querySelector("#getdata")
+    var cuerpo=document.querySelector("#cuerpo")
+    var divGetTask=createDomElement("div","",cuerpo,"form")
+    divGetTask.id="getNewTask"
+    createDomElement("p","Name",divGetTask)
+    var inputname=createDomElement    ("input","",divGetTask,"")
+    createDomElement("p","DueDate",divGetTask)
+    var inputdueDate=createDomElement    ("input","",divGetTask,"")
+    inputdueDate.setAttribute("type","date")
 
-    document.querySelector("#send").addEventListener("click",()=>{addTask})
-    document.querySelector("#cancel").addEventListener("click",createFrom)
-   
+    var divButton=createDomElement("div","",divGetTask)
+    var b1=createDomElement("button","Save",divButton,"boton")
+    var b2=createDomElement("button","Cancel",divButton,"boton")
+    
+
+    
 }
 function addTask(){
     alert(index)
@@ -30,22 +39,18 @@ function addTask(){
 
 
 }
-function createDomElement(tag,inner){
+function createDomElement(tag,inner,parent,clase){
     var newElement=document.createElement(tag)
     newElement.innerHTML=inner;
-    document.querySelector("body").appendChild(newElement)
+    parent.appendChild(newElement)
+    if(clase){
+        newElement.classList.add(clase);
+    }
     return newElement
 
 }
 function createFrom(){
-    var form =document.createElement("div");
-    form.setAttribute("class","formTask")
-
-    var taskName=document.createElement("label")
-    taskName.innerHTML="Task Name";
-    form.appendChild(taskName)}
-    var test=createDomElement("button","este es un pito boton depruba")
-    var test2=createDomElement("button","est222222222e es un pito boton depruba")
+}
 
 
 

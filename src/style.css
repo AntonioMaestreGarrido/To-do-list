@@ -125,3 +125,14 @@ label{
     border: solid 2px red;
     background-color: blueviolet;
  }
+ #getNewTask{
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     padding: 20px 20px 30px 20px;
+     position: fixed;
+     left: 40%;
+     width: 300px;
+     
+     background-color: rgb(206, 205, 255);
+ }
