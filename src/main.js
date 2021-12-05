@@ -4,7 +4,7 @@ import * as dom from "./dom.js";
 dom.testA()
 
 const projectList = [];
-var i = 1;
+var i = 0;
 setListeners()
 
 
@@ -103,11 +103,17 @@ function createCard() {
 }
 
 function openCard(e) {
-    const card = e.target.parentElement
+    //const card = e.target.parentElement
+    var card =document.querySelector("#divContainer")
+    if(!card){card=this}
+    console.log(card)
+    //console.log(e.target.parentElement)
     var cardToOpen
     var indexn
     var id = card.getAttribute("id");
+    if (id==="divContainer"){id=card.getAttribute("index")}
     for (let index in projectList) {
+        console.log(projectList[index].id)
         if (id == projectList[index].id) {
             cardToOpen = projectList[index]
             indexn=index
@@ -184,9 +190,11 @@ function openCard(e) {
     const buttonDelete = document.createElement("button");
     buttonDelete.addEventListener("click",()=>{
         cardToOpen.toDoList.forEach((l,index)=>{
-            console.log(index)
-            if(l.checked){
-                cardToOpen.toDoList.splice
+            console.log(this)
+            if(l.check){
+                console.log(l.index)
+                cardToOpen.toDoList.splice(index,1)
+                openCard(this)
             }
 
         })
@@ -222,6 +230,7 @@ function addNewTask(){
     let index=document.querySelector("#getNewTask").getAttribute("index")
     projectList[index].toDoList.push(n)
     document.querySelector("#getNewTask").remove()
+    openCard()
 
 }
 function borraCard() {
