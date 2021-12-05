@@ -203,10 +203,26 @@ function createNewTask(e){
     var index=e.target.parentElement.getAttribute("index")
     
     dom.getNewTaskData(index)
+    document.querySelector("#saveTask").addEventListener("click",addNewTask)
+    document.querySelector("#cancelTask").addEventListener("click",cancelTask)
     
 
    
     //
+}
+function cancelTask(){
+
+}
+function addNewTask(){
+    console.log(this)
+    let nametask=document.querySelector(".newtaskname").value
+    let description=document.querySelector (".newtaskdescription").value
+    let dueDate=document.querySelector(".newtaskduedate").value
+    var n = new toDo(nametask, description, dueDate)
+    let index=document.querySelector("#getNewTask").getAttribute("index")
+    projectList[index].toDoList.push(n)
+    document.querySelector("#getNewTask").remove()
+
 }
 function borraCard() {
     const card = e.target.parentElement.parentElement
@@ -331,6 +347,18 @@ function getNewProjectData(index) {
     }, false)
     //document.querySelector("#cancel").addEventListener("click", () => { document.querySelector("#getdata").style.display = "none" })
 
+
+
+}
+function addTask(){
+    alert("addtask")
+    var task= new task
+    if (form.elements["name"].value === ""  || form.elements["duedate"].value === "") {
+        alert("faltan cosas");
+        e.stopImmediatePropagation()
+        return
+    }
+    var task=new TransformStreamDefaultController("")
 
 
 }
