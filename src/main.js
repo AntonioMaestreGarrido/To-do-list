@@ -137,11 +137,11 @@ function openCard(e) {
     divContainer.setAttribute("id", "divContainer")
     divContainer.setAttribute("index", indexn)
 
-    const cardName = document.createElement("h2");
+    const cardName = document.createElement("h1");
     divContainer.appendChild(cardName);
     cardName.innerHTML = cardToOpen.nombre;
 
-    const cardDue = document.createElement("h3");
+    const cardDue = document.createElement("h2");
     divContainer.appendChild(cardDue);
     cardDue.innerHTML = cardToOpen.dueDate;
 
@@ -182,18 +182,22 @@ function openCard(e) {
 
 
     });
+    const divButton= document.createElement("div");
+    divButton.id="divButton"
+    divContainer.appendChild(divButton);
+
     const buttonBack = document.createElement("button");
-    divContainer.appendChild(buttonBack);
+    divButton.appendChild(buttonBack);
     buttonBack.addEventListener("click", createCard)
     buttonBack.innerHTML = "close";
 
     const buttonComplete = document.createElement("button");
-    divContainer.appendChild(buttonComplete);
+    divButton.appendChild(buttonComplete);
     buttonComplete.innerHTML = "complete";
 
     const buttonNewTask = document.createElement("button");
     buttonNewTask.addEventListener("click", createNewTask)
-    divContainer.appendChild(buttonNewTask);
+    divButton.appendChild(buttonNewTask);
     buttonNewTask.innerHTML = "New Tast";
 
     const buttonDelete = document.createElement("button");
@@ -210,7 +214,7 @@ function openCard(e) {
 
         console.table(cardToOpen.toDoList)
     })
-    divContainer.appendChild(buttonDelete);
+    divButton.appendChild(buttonDelete);
     buttonDelete.innerHTML = "Delete";
     localStorage.setItem('arra', JSON.stringify(projectList))
     return false;
@@ -218,21 +222,27 @@ function openCard(e) {
 }
 
 function createNewTask(e) {
-    alert(e)
+    
     var index = e.target.parentElement.getAttribute("index")
 
     dom.getNewTaskData(index)
-    document.querySelector("#saveTask").addEventListener("click",(e)=> addNewTask)
-    document.querySelector("#saveTask").removeEventListener("click", addNewTask)
-    document.querySelector("#cancelTask").addEventListener("click", (e)=>cancelTask)
-
-
+    document.querySelector("#saveTask").addEventListener("click",(e)=> addNewTask(e))
+    
+    document.querySelector("#cancelTask").addEventListener("click", (e)=>cancelTask(e))
 
 
 
     //
 }
-function cancelTask() {
+function cancelTask(e) {
+    
+    //document.querySelector("#saveTask").removeEventListener("click", addNewTask)
+    //document.querySelector("#cancelTask").removeEventListener("click", cancelTask)
+    console.log(document.querySelector("#getNewTask"))
+    var card=document.querySelector("#getNewTask")
+    card.remove();
+    
+    createCard()
 
 }
 function addNewTask() {

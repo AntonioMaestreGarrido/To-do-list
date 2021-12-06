@@ -1,5 +1,6 @@
 
-*{margin: 0px;}
+*{margin: 0px;
+    font-family: 'Roboto Slab', serif;}
 h1{
     text-align: center;
     margin: 20px 40px;
@@ -7,7 +8,12 @@ h1{
 }
 h4{
     font-size: 35px;
-    color: lightcoral;
+    
+    color: rgb(67, 22, 77);
+    background-color: rgb(176, 113, 221);
+    border-radius: 25px;
+    margin: 0px 15px;
+    padding: 0 30px;
 }
 #cuerpo{
     display: flex;
@@ -27,6 +33,7 @@ h4{
     min-height: 500px;
     
 }
+
 #lateral>p{
     background-color: gray;
     color: lawngreen;
@@ -72,34 +79,63 @@ label{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    border-radius: 15px;
+    padding: 15px;
+    gap: 5px;
     background-color: rgb(205, 185, 219);
     color: ivory;
-    min-width: 300px;
-    max-width: 300px;
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
     height: 200px;
     box-shadow:  6px 6px 15px grey;
+ }
+ .card > p{
+font-size: 12px;
  }
  
  img:hover{
      background-color:rgb(146, 96, 182);
  }
  
-
+ #divButton{
+     display: flex;
+     background-color: brown;
+     align-items: center;
+     justify-content: center;
+ }
 .buttonContainer{
     position: fixed;
-    
-    
+    display: flex;
+    justify-content: space-around
     height: inherit;
     width: inherit;
 }
+button:hover{
+   
+    background-color: rgb(145, 235, 202);
+   
+}
+button{
+    padding: 0;
+    margin: 10px;
+    background-color: rgb(206, 231, 222);
+    border-radius: 25px;
+    font-size: 14px;
+    border: solid black 4px;
+    width: 80px;
+    height: 30px;
+}
  img.iconcard{
      
-     
+     width: 35px;
+     height: 35px;
     position: relative;
-    margin: 0 50px;
-    top: 150px;
+    margin: 0 51px;
+    top: 160px;
     
 	  display:inline-block;
+      
 
  }
  #divContainer{
