@@ -36,7 +36,7 @@ class toDo {
 
         this.description = description
         this.dueDate = dueDate
-        var check=false
+        var check = false
 
 
 
@@ -81,7 +81,7 @@ function createCard() {
 
         const buttonEditar = document.createElement("img")
         buttonEditar.setAttribute("src", "icons/pen.png")
-        buttonEditar.addEventListener("click", editaCard)
+        buttonEditar.addEventListener("click", editaCard,true)
         buttonEditar.classList.add("iconcard")
         divButton.appendChild(buttonEditar);
 
@@ -89,13 +89,13 @@ function createCard() {
         buttonBorrar.setAttribute("src", "icons/bin.png")
         divButton.appendChild(buttonBorrar);
         buttonBorrar.classList.add("iconcard")
-        buttonBorrar.addEventListener("click", borraCard)
+        buttonBorrar.addEventListener("click", borraCard,true)
 
 
 
 
         document.querySelector("#panel").appendChild(card);
-        card.addEventListener("click", openCard)
+        card.addEventListener("click", openCard,false)
 
 
     }
@@ -103,20 +103,21 @@ function createCard() {
 }
 
 function openCard(e) {
+    e.stopPropagation();
     //const card = e.target.parentElement
-    var card =document.querySelector("#divContainer")
-    if(!card){card=this}
+    var card = document.querySelector("#divContainer")
+    if (!card) { card = this }
     console.log(card)
     //console.log(e.target.parentElement)
     var cardToOpen
     var indexn
     var id = card.getAttribute("id");
-    if (id==="divContainer"){id=card.getAttribute("index")}
+    if (id === "divContainer") { id = card.getAttribute("index") }
     for (let index in projectList) {
         console.log(projectList[index].id)
         if (id == projectList[index].id) {
             cardToOpen = projectList[index]
-            indexn=index
+            indexn = index
         }
 
     }
@@ -145,26 +146,26 @@ function openCard(e) {
     pending.innerHTML = "Pending Task";
 
     cardToOpen.toDoList.forEach(l => {
-        var divTask=document.createElement("div")
+        var divTask = document.createElement("div")
         divTask.classList.add("taskContainer")
         divContainer.appendChild(divTask);
 
-        var taskDue=document.createElement("span");
-        taskDue.innerHTML=l.dueDate;
+        var taskDue = document.createElement("span");
+        taskDue.innerHTML = l.dueDate;
         divTask.appendChild(taskDue);
         console.log(l.nombre);
-        
-        var taskName=document.createElement("span")
-        taskName.innerHTML=l.nombre
+
+        var taskName = document.createElement("span")
+        taskName.innerHTML = l.nombre
         divTask.appendChild(taskName)
-        
-        var radiobutton=document.createElement("input")
-        radiobutton.setAttribute("type","checkbox")
-        radiobutton.addEventListener("click",()=>{l.check=radiobutton.checked;console.log(l.check);console.log(radiobutton.checked)})
+
+        var radiobutton = document.createElement("input")
+        radiobutton.setAttribute("type", "checkbox")
+        radiobutton.addEventListener("click", () => { l.check = radiobutton.checked; console.log(l.check); console.log(radiobutton.checked) })
         divTask.appendChild(radiobutton)
 
-        var task=document.createElement("p")
-        task.innerHTML=l.description
+        var task = document.createElement("p")
+        task.innerHTML = l.description
         divTask.appendChild(task)
 
 
@@ -175,7 +176,7 @@ function openCard(e) {
     });
     const buttonBack = document.createElement("button");
     divContainer.appendChild(buttonBack);
-    buttonBack.addEventListener("click",createCard)
+    buttonBack.addEventListener("click", createCard)
     buttonBack.innerHTML = "close";
 
     const buttonComplete = document.createElement("button");
@@ -183,57 +184,60 @@ function openCard(e) {
     buttonComplete.innerHTML = "complete";
 
     const buttonNewTask = document.createElement("button");
-    buttonNewTask.addEventListener("click",createNewTask)
+    buttonNewTask.addEventListener("click", createNewTask)
     divContainer.appendChild(buttonNewTask);
     buttonNewTask.innerHTML = "New Tast";
 
     const buttonDelete = document.createElement("button");
-    buttonDelete.addEventListener("click",()=>{
-        cardToOpen.toDoList.forEach((l,index)=>{
+    buttonDelete.addEventListener("click", () => {
+        cardToOpen.toDoList.forEach((l, index) => {
             console.log(this)
-            if(l.check){
+            if (l.check) {
                 console.log(l.index)
-                cardToOpen.toDoList.splice(index,1)
+                cardToOpen.toDoList.splice(index, 1)
                 openCard(this)
             }
 
         })
-        
+
         console.table(cardToOpen.toDoList)
     })
     divContainer.appendChild(buttonDelete);
     buttonDelete.innerHTML = "Delete";
+    return false;
 
 }
 
-function createNewTask(e){
+function createNewTask(e) {
     alert(e)
-    var index=e.target.parentElement.getAttribute("index")
-    
-    dom.getNewTaskData(index)
-    document.querySelector("#saveTask").addEventListener("click",addNewTask)
-    document.querySelector("#cancelTask").addEventListener("click",cancelTask)
-    
+    var index = e.target.parentElement.getAttribute("index")
 
-   
+    dom.getNewTaskData(index)
+    document.querySelector("#saveTask").addEventListener("click", addNewTask)
+    document.querySelector("#cancelTask").addEventListener("click", cancelTask)
+
+
+
     //
 }
-function cancelTask(){
+function cancelTask() {
 
 }
-function addNewTask(){
+function addNewTask() {
     console.log(this)
-    let nametask=document.querySelector(".newtaskname").value
-    let description=document.querySelector (".newtaskdescription").value
-    let dueDate=document.querySelector(".newtaskduedate").value
+    let nametask = document.querySelector(".newtaskname").value
+    let description = document.querySelector(".newtaskdescription").value
+    let dueDate = document.querySelector(".newtaskduedate").value
     var n = new toDo(nametask, description, dueDate)
-    let index=document.querySelector("#getNewTask").getAttribute("index")
+    let index = document.querySelector("#getNewTask").getAttribute("index")
     projectList[index].toDoList.push(n)
     document.querySelector("#getNewTask").remove()
     openCard()
 
 }
-function borraCard() {
+function borraCard(e) {
+    e.stopPropagation();
+   
     const card = e.target.parentElement.parentElement
     let id = card.getAttribute("id");
 
@@ -247,18 +251,18 @@ function borraCard() {
 
             projectList.splice(index, 1)
             createCard()
-            return
+            return false
         }
 
     }
-
+    
 
 
 
 
 }
-function idToIndex(id){
-    
+function idToIndex(id) {
+
     for (let index in projectList) {
 
 
@@ -266,7 +270,7 @@ function idToIndex(id){
 
 
 
-           
+
             return index
         }
 
@@ -274,6 +278,7 @@ function idToIndex(id){
 
 }
 function editaCard(e) {
+    e.stopPropagation();
     const card = e.target.parentElement.parentElement
     for (let index in projectList) {
 
@@ -283,7 +288,7 @@ function editaCard(e) {
 
 
             getNewProjectData(index)
-            return
+            return false
         }
 
     }
@@ -297,17 +302,18 @@ function editaCard(e) {
 
 function setListeners() {
     console.log("WW")
-    document.querySelector("#newProject").addEventListener("click",  ()=> {
-        getNewProjectData( )
+    document.querySelector("#newProject").addEventListener("click", () => {
+        getNewProjectData()
         //document.querySelector("#getdata").style.display = "flex"
     })
     document.querySelector("#cancel").addEventListener("click", () => {
-        document.querySelector("#newProject").removeEventListener("click",  ()=> {
-            getNewProjectData( )
-            
+        document.querySelector("#newProject").removeEventListener("click", () => {
+            getNewProjectData()
+
         })
 
-         document.querySelector("#getdata").style.display = "none" })
+        document.querySelector("#getdata").style.display = "none"
+    })
 }
 
 function getNewProjectData(index) {
@@ -325,7 +331,7 @@ function getNewProjectData(index) {
 
 
     document.querySelector("#getdata").setAttribute("index", index)
-    document.querySelector("#send").addEventListener("click",  (e)=> {
+    document.querySelector("#send").addEventListener("click", (e) => {
         e.preventDefault();
         //e.stopPropagation();
         index = document.querySelector("#getdata").getAttribute("index")
@@ -359,15 +365,15 @@ function getNewProjectData(index) {
 
 
 }
-function addTask(){
+function addTask() {
     alert("addtask")
-    var task= new task
-    if (form.elements["name"].value === ""  || form.elements["duedate"].value === "") {
+    var task = new task
+    if (form.elements["name"].value === "" || form.elements["duedate"].value === "") {
         alert("faltan cosas");
         e.stopImmediatePropagation()
         return
     }
-    var task=new TransformStreamDefaultController("")
+    var task = new TransformStreamDefaultController("")
 
 
 }
