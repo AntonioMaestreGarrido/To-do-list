@@ -3,51 +3,59 @@ import * as dom from "./dom.js";
 
 dom.testA()
 
-const projectList = [];
+var projectList = [];
 var i = 0;
 setListeners()
 
 
 
 class Project {
-
+    
     constructor(nombre, description, dueDate) {
         this.nombre = nombre
         this.dueDate = dueDate
         this.description = description
-
+        
         this.toDoList = [];
         this.id = i;
         i++;
     }
     addToDo(todo) {
         this.toDoList.push(todo)
-
-
+        
+        
     }
-
-
-
+    
+    
+    
 }
 class toDo {
-
+    
     constructor(nombre, description, dueDate) {
         this.nombre = nombre
-
+        
         this.description = description
         this.dueDate = dueDate
         var check = false
-
-
-
+        
+        
+        
     }
-
-
-
+    
+    
+    
 }
 
-
-dummydata()
+//dummydata()
+leeLocal()
+function leeLocal() {
+    const myArrayFromLocalStorage = localStorage.getItem('arra')
+    projectList = JSON.parse(myArrayFromLocalStorage)
+    if (projectList === null) { projectList = [] }
+    
+}
+localStorage.setItem('arra', JSON.stringify(projectList))
+createCard()
 
 
 
@@ -98,12 +106,12 @@ function createCard() {
         card.addEventListener("click", openCard,false)
 
 
-    }
+    }localStorage.setItem('arra', JSON.stringify(projectList))
 
 }
 
 function openCard(e) {
-    e.stopPropagation();
+    //e.stopPropagation();
     //const card = e.target.parentElement
     var card = document.querySelector("#divContainer")
     if (!card) { card = this }
@@ -204,6 +212,7 @@ function openCard(e) {
     })
     divContainer.appendChild(buttonDelete);
     buttonDelete.innerHTML = "Delete";
+    localStorage.setItem('arra', JSON.stringify(projectList))
     return false;
 
 }
@@ -213,8 +222,11 @@ function createNewTask(e) {
     var index = e.target.parentElement.getAttribute("index")
 
     dom.getNewTaskData(index)
-    document.querySelector("#saveTask").addEventListener("click", addNewTask)
-    document.querySelector("#cancelTask").addEventListener("click", cancelTask)
+    document.querySelector("#saveTask").addEventListener("click",(e)=> addNewTask)
+    document.querySelector("#saveTask").removeEventListener("click", addNewTask)
+    document.querySelector("#cancelTask").addEventListener("click", (e)=>cancelTask)
+
+
 
 
 
