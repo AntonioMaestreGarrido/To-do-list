@@ -137,7 +137,7 @@ function openCard(e) {
     divContainer.setAttribute("id", "divContainer")
     divContainer.setAttribute("index", indexn)
 
-    const cardName = document.createElement("h1");
+    const cardName = document.createElement("h4");
     divContainer.appendChild(cardName);
     cardName.innerHTML = cardToOpen.nombre;
 
@@ -326,6 +326,7 @@ function setListeners() {
     console.log("WW")
     document.querySelector("#newProject").addEventListener("click", () => {
         getNewProjectData()
+        alert("click")
         //document.querySelector("#getdata").style.display = "flex"
     })
     document.querySelector("#cancel").addEventListener("click", () => {

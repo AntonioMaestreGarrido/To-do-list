@@ -112,7 +112,7 @@ label{
     background-color: rgb(114, 103, 203);
 }
 .card{
-    position: relative;
+    position: static;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -137,7 +137,7 @@ background-color: transparent;
  }
  
  #divButton{
-     position: relative;
+     position: absolute;
      bottom: 10px;
      left: 1px;
      width: inherit;
@@ -148,11 +148,10 @@ background-color: transparent;
      justify-content: space-evenly;
  }
 .buttonContainer{
-   
-    position: absolute;
+    position: fixed;
+    
     bottom: 20px;
     display: flex;
-
     justify-content: space-around;
     background-color: transparent;
     
@@ -179,7 +178,7 @@ button{
      background-color: transparent;
      width: 35px;
      height: 35px;
-   
+    position: relative;
     margin: 0 51px;
     top: 160px;
     
@@ -233,8 +232,4 @@ button{
      width: 300px;
      
      background-color: transparent;
- }
- #getdata{
-     display: none;
-     z-index: 50;
  }
