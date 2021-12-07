@@ -7,13 +7,13 @@
 	font: inherit;
 	vertical-align: baseline;
     background-color: lightcyan;
-    z-index: 0;
+    
     
     font-family: 'Roboto Slab', serif;}
     p{
         background-color: inherit;
         color: ivory;
-        z-index: 0;
+        
     }
     h2 {
         color: rgb(67, 22, 77);
@@ -81,15 +81,17 @@ form{
     display: none;
     flex-direction: column;
     background-color: khaki;
-    z-index: 100;
+    
 }
 ul{
     display: flex;
-    border: solid 2px green;
+    border: solid 2px black;
+    background-color: inherit;
 }
 label{
-    margin: 0;
-    border: solid 2px red;
+    background-color: inherit;
+    margin: 5px 15px;
+    
     width: 80px;
 }
 #description{
@@ -97,7 +99,7 @@ label{
 }
 #panel{
     margin: 0px;
-    border: solid 2px red;
+    
     width: 100%;
     height: 90%;
     display: flex;
@@ -206,7 +208,7 @@ button{
      padding: 15px     ;
      flex-direction: column;
      text-align: center;
-     z-index: 0;
+     
  }
  .taskContainer{
      
@@ -214,7 +216,7 @@ button{
     display: inline-flexbox;
      background-color: transparent; 
      flex-direction: row;
-     z-index: 0;
+     
      
  }
   span{
@@ -235,6 +237,13 @@ button{
      background-color: transparent;
  }
  #getdata{
+    background-color: rgb(152, 186, 231);
+     color: lemonchiffon;
+     position: fixed;
      display: none;
-     z-index: 50;
+     left: 40%;
+     bottom: 50%;
+     border-radius: 15px;
+     border:solid black 10px;
+     z-index: 1000;
  }
