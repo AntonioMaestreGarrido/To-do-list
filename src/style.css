@@ -139,7 +139,7 @@ background-color: transparent;
  }
  
  #divButton{
-     position: relative;
+     position: absolute;
      bottom: 10px;
      left: 1px;
      width: inherit;
@@ -233,8 +233,12 @@ button{
      position: fixed;
      left: 40%;
      width: 300px;
-     
-     background-color: transparent;
+     border: solid black 4px;
+     border-radius: 15px;
+     background-color: rgb(152, 186, 231);
+ }
+ #getNewTask>div{
+     background-color: inherit;
  }
  #getdata{
     background-color: rgb(152, 186, 231);

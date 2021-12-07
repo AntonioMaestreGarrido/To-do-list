@@ -9,50 +9,87 @@ setListeners()
 
 
 
+
 class Project {
-    
+
     constructor(nombre, description, dueDate) {
         this.nombre = nombre
         this.dueDate = dueDate
         this.description = description
-        
+
         this.toDoList = [];
-        this.id = i;
+        this.id = assignID();
         i++;
     }
+
+
+
+
     addToDo(todo) {
         this.toDoList.push(todo)
-        
-        
+
+
     }
-    
-    
-    
+
+
+
 }
 class toDo {
-    
+
     constructor(nombre, description, dueDate) {
         this.nombre = nombre
-        
+
         this.description = description
         this.dueDate = dueDate
         var check = false
-        
-        
-        
+
+
+
     }
-    
-    
-    
+
+
+
 }
 
 //dummydata()
+
+function assignID() {
+    let id
+    let found
+    let i = -1
+     while (!id) {
+        i++
+        found=false
+        for (let j = 0;j< projectList.length; j++) {
+            console.log(projectList[j].id)
+            console.log(i)
+            if (i == projectList[j].id) {
+                found=true
+                break;
+            }
+            
+        }
+        if(!found){
+            return i
+        }
+    }
+    return i
+    
+}
+
+
+
+
+
+
+
+
 leeLocal()
 function leeLocal() {
     const myArrayFromLocalStorage = localStorage.getItem('arra')
     projectList = JSON.parse(myArrayFromLocalStorage)
     if (projectList === null) { projectList = [] }
-    
+
 }
 localStorage.setItem('arra', JSON.stringify(projectList))
 createCard()
@@ -69,7 +106,7 @@ function createCard() {
 
         const card = document.createElement("div");
         card.classList.add("card")
-        card.setAttribute("id", cardElement.id);
+        card.setAttribute("id", i);
 
         const cardName = document.createElement("h4");
         card.appendChild(cardName);
@@ -89,7 +126,7 @@ function createCard() {
 
         const buttonEditar = document.createElement("img")
         buttonEditar.setAttribute("src", "icons/pen.png")
-        buttonEditar.addEventListener("click", editaCard,true)
+        buttonEditar.addEventListener("click", editaCard, true)
         buttonEditar.classList.add("iconcard")
         divButton.appendChild(buttonEditar);
 
@@ -97,16 +134,16 @@ function createCard() {
         buttonBorrar.setAttribute("src", "icons/bin.png")
         divButton.appendChild(buttonBorrar);
         buttonBorrar.classList.add("iconcard")
-        buttonBorrar.addEventListener("click", borraCard,true)
+        buttonBorrar.addEventListener("click", borraCard, true)
 
 
 
 
         document.querySelector("#panel").appendChild(card);
-        card.addEventListener("click", openCard,false)
+        card.addEventListener("click", openCard, false)
 
 
-    }localStorage.setItem('arra', JSON.stringify(projectList))
+    } localStorage.setItem('arra', JSON.stringify(projectList))
 
 }
 
@@ -182,8 +219,8 @@ function openCard(e) {
 
 
     });
-    const divButton= document.createElement("div");
-    divButton.id="divButton"
+    const divButton = document.createElement("div");
+    divButton.id = "divButton"
     divContainer.appendChild(divButton);
 
     const buttonBack = document.createElement("button");
@@ -222,26 +259,26 @@ function openCard(e) {
 }
 
 function createNewTask(e) {
-    
-    var index = e.target.parentElement.getAttribute("index")
+
+    var index = e.target.parentElement.parentElement.getAttribute("index")
 
     dom.getNewTaskData(index)
-    document.querySelector("#saveTask").addEventListener("click",(e)=> addNewTask(e))
-    
-    document.querySelector("#cancelTask").addEventListener("click", (e)=>cancelTask(e))
+    document.querySelector("#saveTask").addEventListener("click", (e) => addNewTask(e))
+
+    document.querySelector("#cancelTask").addEventListener("click", (e) => cancelTask(e))
 
 
 
     //
 }
 function cancelTask(e) {
-    
+
     //document.querySelector("#saveTask").removeEventListener("click", addNewTask)
     //document.querySelector("#cancelTask").removeEventListener("click", cancelTask)
     console.log(document.querySelector("#getNewTask"))
-    var card=document.querySelector("#getNewTask")
+    var card = document.querySelector("#getNewTask")
     card.remove();
-    
+
     createCard()
 
 }
@@ -259,7 +296,7 @@ function addNewTask() {
 }
 function borraCard(e) {
     e.stopPropagation();
-   
+
     const card = e.target.parentElement.parentElement
     let id = card.getAttribute("id");
 
@@ -277,7 +314,7 @@ function borraCard(e) {
         }
 
     }
-    
+
 
 
 
@@ -303,7 +340,8 @@ function editaCard(e) {
     e.stopPropagation();
     const card = e.target.parentElement.parentElement
     for (let index in projectList) {
-
+        console.log(card.getAttribute("id"))
+        console.log(projectList[index].id)
 
         if (card.getAttribute("id") == projectList[index].id) {
 
@@ -326,17 +364,20 @@ function setListeners() {
     console.log("WW")
     document.querySelector("#newProject").addEventListener("click", () => {
         getNewProjectData()
-        
+
         //document.querySelector("#getdata").style.display = "flex"
     })
     document.querySelector("#cancel").addEventListener("click", () => {
-        document.querySelector("#newProject").removeEventListener("click", () => {
-            getNewProjectData()
-
-        })
-
         document.querySelector("#getdata").style.display = "none"
+
     })
+
+
+
+    document.querySelector("#newProject").removeEventListener("click", () => {
+        getNewProjectData()
+    })
+
 }
 
 function getNewProjectData(index) {
@@ -402,12 +443,12 @@ function addTask() {
 }
 function dummydata() {
     var uno = new Project("the odin project", "Lorem ipsum dolorna aliquanisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum do", "2021-11-15")
-    var dos = new Project("black belt", "a ver si llego", "2021-11-15")
-    var tres = new Project("kill borja", "no se merece menos", "2021-11-15")
-    var cuatro = new Project("random app in vba", "ni puta idea", "2021-11-15")
     projectList.push(uno);
+    var dos = new Project("black belt", "a ver si llego", "2021-11-15")
     projectList.push(dos);
+    var tres = new Project("kill borja", "no se merece menos", "2021-11-15")
     projectList.push(tres);
+    var cuatro = new Project("random app in vba", "ni puta idea", "2021-11-15")
     projectList.push(cuatro);
 
     var example2 = new toDo("mejorar Derrido", "hay que trabajar mas los derribos para puntuar", "2021-11-15")
